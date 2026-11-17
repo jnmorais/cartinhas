@@ -28,10 +28,10 @@
   --paper: #fffdf6;
   --line: #d6eaff;
 
-  /* envelope (desktop) */
+  /* envelope (desktop). --letter-h é recalculado pelo Envelope.tsx conforme o conteúdo */
   --env-w: 440px;
   --env-h: 260px;
-  --letter-h: 560px;
+  --letter-h: 900px;
   --letter-closed: 190px;
   --lift: 130px;
   --foot: 120px;
@@ -41,7 +41,7 @@
   :root {
     --env-w: min(92vw, 400px);
     --env-h: 210px;
-    --letter-h: 540px;
+    --letter-h: 960px;
     --letter-closed: 150px;
     --lift: 105px;
     --foot: 96px;
@@ -330,7 +330,9 @@ button { font-family: inherit; }
   transition: transform .25s cubic-bezier(.3, 1.6, .5, 1), box-shadow .25s;
 }
 .f-idade { --c: var(--orange); }
-.f-telefone { --c: var(--green); }
+.f-roupa { --c: var(--purple); }
+.f-calcado { --c: #ff5c8a; }
+.f-pedidos { --c: var(--green); }
 
 .field:focus-within {
   border-style: solid;
@@ -339,7 +341,9 @@ button { font-family: inherit; }
 }
 .field:nth-child(odd):focus-within { transform: rotate(1deg) scale(1.02); }
 
-.field label {
+.field > label,
+.field > .label {
+  margin: 0;
   display: flex; align-items: center; gap: 6px;
   font-weight: 600; font-size: 1.05rem; color: var(--c);
   filter: brightness(.82);
@@ -360,8 +364,6 @@ button { font-family: inherit; }
 .field input:focus { border-bottom-color: var(--c); }
 .field input.pop { animation: pop .18s ease-out; }
 @keyframes pop { 50% { transform: scale(1.04); } }
-
-.tip { margin: 4px 0 0; font-size: .9rem; color: var(--ink-soft); }
 
 /* aviso de campo faltando: balãozinho que não ocupa espaço */
 .hint {
@@ -389,12 +391,12 @@ button { font-family: inherit; }
   width: 42px; height: 42px; border-radius: 50%;
   border: 0; cursor: pointer;
   font-size: 1.6rem; font-weight: 700; line-height: 1; color: #fff;
-  background: var(--orange);
-  box-shadow: 0 4px 0 #d9761a;
+  background: var(--c);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--c) 70%, #000);
   transition: transform .1s, box-shadow .1s;
   touch-action: manipulation;
 }
-.step:active { transform: translateY(3px); box-shadow: 0 1px 0 #d9761a; }
+.step:active { transform: translateY(3px); box-shadow: 0 1px 0 color-mix(in srgb, var(--c) 70%, #000); }
 .step:focus-visible { outline: 3px dashed var(--purple); outline-offset: 2px; }
 
 .candles { display: flex; flex-wrap: wrap; gap: 4px; min-height: 26px; margin-top: 6px; }
@@ -413,6 +415,39 @@ button { font-family: inherit; }
 }
 @keyframes candleIn { from { transform: translateY(8px) scale(0); } }
 @keyframes flicker { to { transform: scale(.85) rotate(6deg); } }
+
+/* Tamanho da roupa: botõezinhos */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip { position: relative; cursor: pointer; }
+.chip input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.chip span {
+  display: grid; place-items: center;
+  min-width: 42px; height: 38px; padding: 0 10px;
+  font-weight: 600; font-size: 1.05rem; color: var(--ink);
+  background: #fff;
+  border: 2px solid color-mix(in srgb, var(--c) 45%, transparent);
+  border-radius: 12px;
+  transition: transform .2s cubic-bezier(.3, 1.8, .5, 1), background .15s, color .15s;
+}
+.chip:hover span { transform: translateY(-2px); }
+.chip input:checked + span {
+  color: #fff; background: var(--c); border-color: var(--c);
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--c) 65%, #000);
+}
+.chip input:focus-visible + span { outline: 3px dashed var(--purple); outline-offset: 2px; }
+
+/* 3 pedidos */
+.pedidos { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 4px; }
+.pedido { display: flex; align-items: center; gap: 8px; }
+.pedido .num {
+  flex: none; display: grid; place-items: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  font-weight: 700; color: #fff;
+  background: var(--nc);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .15);
+}
+.field .pedido input { font-size: 1.45rem; }
 
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 

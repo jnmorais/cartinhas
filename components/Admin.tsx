@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { formatarTelefone, type CartinhaSalva } from "@/lib/validar";
+import { QTD_PEDIDOS, type CartinhaSalva } from "@/lib/validar";
 import s from "./admin.module.css";
 
 const CHAVE_SESSAO = "cartinhas-senha";
@@ -16,11 +16,15 @@ async function buscarCartinhas(senha: string): Promise<CartinhaSalva[]> {
   return j.cartinhas ?? [];
 }
 
+// Garante 3 pedidos mesmo em registros antigos/incompletos
+const pedidosDe = (c: CartinhaSalva) => Array.from({ length: QTD_PEDIDOS }, (_, i) => c.pedidos?.[i] ?? "");
+
 function baixarCsv(cartinhas: CartinhaSalva[]) {
-  const esc = (v: unknown) => `"${String(v).replace(/"/g, '""')}"`;
-  const linhas = [["Nome", "Idade", "Telefone", "Enviada em"].map(esc).join(";")];
+  const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const titulosPedidos = Array.from({ length: QTD_PEDIDOS }, (_, i) => `Pedido ${i + 1}`);
+  const linhas = [["Nome", "Idade", "Roupa", "Calçado", ...titulosPedidos, "Enviada em"].map(esc).join(";")];
   for (const c of cartinhas) {
-    linhas.push([c.nome, c.idade, formatarTelefone(c.telefone), formatarData(c.criadoEm)].map(esc).join(";"));
+    linhas.push([c.nome, c.idade, c.roupa, c.calcado, ...pedidosDe(c), formatarData(c.criadoEm)].map(esc).join(";"));
   }
   // BOM + ";" para o Excel em português abrir certinho
   const blob = new Blob(["﻿" + linhas.join("\r\n")], { type: "text/csv;charset=utf-8" });
@@ -65,10 +69,9 @@ export default function Admin() {
   const filtradas = useMemo(() => {
     if (!cartinhas) return [];
     const termo = busca.trim().toLowerCase();
-    const termoNum = termo.replace(/\D/g, "");
     if (!termo) return cartinhas;
     return cartinhas.filter(
-      (c) => c.nome.toLowerCase().includes(termo) || (termoNum !== "" && c.telefone.includes(termoNum))
+      (c) => c.nome.toLowerCase().includes(termo) || pedidosDe(c).some((p) => p.toLowerCase().includes(termo))
     );
   }, [cartinhas, busca]);
 
@@ -119,7 +122,7 @@ export default function Admin() {
               <input
                 className={`${s.input} ${s.busca}`}
                 type="search"
-                placeholder="Procurar por nome ou telefone"
+                placeholder="Procurar por nome ou pedido"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
               />
@@ -131,14 +134,16 @@ export default function Admin() {
                   <tr>
                     <th>Nome</th>
                     <th>Idade</th>
-                    <th>Telefone</th>
+                    <th>Roupa</th>
+                    <th>Calçado</th>
+                    <th>Pedidos</th>
                     <th>Enviada em</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filtradas.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className={s.vazio}>
+                      <td colSpan={6} className={s.vazio}>
                         {cartinhas.length ? "Nada encontrado." : "Nenhuma cartinha ainda. 💌"}
                       </td>
                     </tr>
@@ -147,7 +152,15 @@ export default function Admin() {
                       <tr key={`${c.criadoEm}-${i}`}>
                         <td className={s.nome}>{c.nome}</td>
                         <td>{c.idade} anos</td>
-                        <td>{formatarTelefone(c.telefone)}</td>
+                        <td>{c.roupa ?? "—"}</td>
+                        <td>{c.calcado ?? "—"}</td>
+                        <td className={s.pedidosCel}>
+                          <ol>
+                            {pedidosDe(c).map((p, j) => (
+                              <li key={j}>{p || "—"}</li>
+                            ))}
+                          </ol>
+                        </td>
                         <td>{formatarData(c.criadoEm)}</td>
                       </tr>
                     ))

@@ -10,7 +10,9 @@ export const esperar = (ms: number) =>
 export const PARTICULAS = {
   nome: ["⭐", "✨", "💖", "🌟", "🌈", "💫"],
   idade: ["🎈", "🎉", "🍰", "🎂", "✨"],
-  telefone: ["📞", "💬", "✨", "⭐", "💛"],
+  roupa: ["👕", "👗", "🩳", "✨"],
+  calcado: ["👟", "🥿", "⭐", "✨"],
+  pedidos: ["🎁", "🧸", "🎀", "⭐", "🪁", "✨"],
   voo: ["✨", "⭐", "💖", "💫"],
 };
 

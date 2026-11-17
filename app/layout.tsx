@@ -7,7 +7,7 @@ const gochi = Gochi_Hand({ subsets: ["latin"], weight: "400", variable: "--font-
 
 export const metadata: Metadata = {
   title: "Minha Cartinha",
-  description: "Escreva sua cartinha: seu nome, sua idade e um telefone!",
+  description: "Escreva sua cartinha: seu nome, sua idade, seus tamanhos e 3 pedidos!",
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>",
   },

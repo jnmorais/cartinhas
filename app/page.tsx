@@ -18,7 +18,7 @@ export default function Home() {
               )
             )}
           </h1>
-          <p className="subtitle">Escreva seu nome, sua idade e um telefone. Depois é só mandar! ✨</p>
+          <p className="subtitle">Conte quem você é, seus tamanhos e os seus 3 pedidos. Depois é só mandar! ✨</p>
         </header>
 
         <Cartinha />

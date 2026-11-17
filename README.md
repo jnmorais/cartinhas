@@ -1,6 +1,6 @@
 # Minha Cartinha 💌
 
-Site da cartinha do colégio feito em **Next.js 16 (App Router) + TypeScript**. A criança toca no envelope (ou começa a digitar), a carta sai, ela preenche **nome**, **idade** e **telefone** e, ao enviar, a carta volta pro envelope, que é selado e sai voando.
+Site da cartinha do colégio feito em **Next.js 16 (App Router) + TypeScript**. A criança toca no envelope (ou começa a digitar), a carta sai, ela preenche **nome**, **idade**, **tamanho de roupa**, **número do calçado** e **3 pedidos** e, ao enviar, a carta volta pro envelope, que é selado e sai voando.
 
 ## Estrutura
 
@@ -49,4 +49,8 @@ Para as APIs funcionarem localmente, crie um `.env.local` com as variáveis abai
 
 - Título e frase de abertura: `app/page.tsx`
 - Cores: variáveis no topo de `app/globals.css`
-- Faixa de idade aceita: `IDADE_MIN` / `IDADE_MAX` em `lib/validar.ts`
+- Regras dos campos, todas em `lib/validar.ts`:
+  - idade aceita: `IDADE_MIN` / `IDADE_MAX`
+  - tamanhos de roupa oferecidos: `TAMANHOS_ROUPA`
+  - números de calçado: `CALCADO_MIN` / `CALCADO_MAX`
+  - quantidade de pedidos: `QTD_PEDIDOS`
