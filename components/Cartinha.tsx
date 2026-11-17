@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Envelope from "./Envelope";
 import { confete, menosMovimento } from "./efeitos";
+import { ORGANIZACAO } from "@/lib/projeto";
 
 // Alterna entre o envelope (escrevendo) e a tela de "Cartinha enviada!".
 export default function Cartinha() {
@@ -29,6 +30,7 @@ export default function Cartinha() {
           <p>
             Obrigado, <b>{enviadaPor}</b>! Sua cartinha chegou direitinho. 💌
           </p>
+          <p className="done-org">Com carinho, {ORGANIZACAO} 🌱</p>
           <button
             ref={outraRef}
             type="button"

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { QTD_PEDIDOS, type CartinhaSalva } from "@/lib/validar";
+import { ORGANIZACAO } from "@/lib/projeto";
 import s from "./admin.module.css";
 
 const CHAVE_SESSAO = "cartinhas-senha";
@@ -79,7 +80,7 @@ export default function Admin() {
     <div className={s.fundo}>
       <main className={s.main}>
         <h1 className={s.h1}>📬 Cartinhas recebidas</h1>
-        <p className={s.sub}>Área da escola. Digite a senha para ver as cartinhas.</p>
+        <p className={s.sub}>Área do {ORGANIZACAO}. Digite a senha para ver as cartinhas.</p>
 
         {cartinhas === null ? (
           <section className={s.card}>

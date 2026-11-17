@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Admin from "@/components/Admin";
+import { ORGANIZACAO } from "@/lib/projeto";
 
 export const metadata: Metadata = {
-  title: "Cartinhas Recebidas",
+  title: `Cartinhas Recebidas · ${ORGANIZACAO}`,
   robots: { index: false, follow: false },
 };
 

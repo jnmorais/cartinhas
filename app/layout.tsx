@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Fredoka, Gochi_Hand } from "next/font/google";
+import { ORGANIZACAO } from "@/lib/projeto";
 import "./globals.css";
 
 const fredoka = Fredoka({ subsets: ["latin"], variable: "--font-fredoka", display: "swap" });
 const gochi = Gochi_Hand({ subsets: ["latin"], weight: "400", variable: "--font-gochi", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Minha Cartinha",
-  description: "Escreva sua cartinha: seu nome, sua idade, seus tamanhos e 3 pedidos!",
+  title: `Minha Cartinha · ${ORGANIZACAO}`,
+  description: `Escreva sua cartinha: seu nome, sua idade, seus tamanhos e 3 pedidos! Um projeto do ${ORGANIZACAO}.`,
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>",
   },

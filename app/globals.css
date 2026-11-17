@@ -132,6 +132,28 @@ button { font-family: inherit; }
   text-align: center;
 }
 
+/* Selo e rodapé do Grupo Geração Futuro */
+.org-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 0 0 14px; padding: 6px 16px;
+  font-size: .98rem; font-weight: 500; color: var(--ink-soft);
+  background: rgba(255, 255, 255, .85);
+  border: 2px solid #fff; border-radius: 999px;
+  box-shadow: 0 4px 0 rgba(59, 42, 90, .08);
+}
+.org-badge strong { color: #2f9e6a; font-weight: 700; }
+
+.org-footer {
+  display: inline-block;
+  margin-top: 40px; padding: 8px 18px;
+  font-size: .95rem; color: var(--ink-soft);
+  background: rgba(255, 255, 255, .85);
+  border-radius: 999px;
+}
+.org-footer strong { color: #2f9e6a; }
+
+.done-org { margin-top: 10px !important; font-size: 1rem !important; color: var(--ink-soft); }
+
 .title {
   margin: 0;
   font-size: clamp(2.6rem, 10vw, 4.4rem);
